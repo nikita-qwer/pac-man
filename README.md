@@ -8,7 +8,4 @@ Acesta este un joc Pac-Man simplu realizat în C++.
 - Fantome care se mișcă aleatoriu
 - Colecționarea de puncte
 
-## Compilare și rulare
-```bash
-make
-./pacman
+
