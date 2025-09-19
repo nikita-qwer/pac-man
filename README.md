@@ -1,11 +1,13 @@
-# Proiect Pac-Man
+# Pac-Man Game
 
-Acesta este un joc Pac-Man simplu realizat în C++.
+## Descriere
+Acest proiect este o implementare de bază a jocului Pac-Man folosind C++.
 
-## Caracteristici
-- Labirint cu pereți și căi
-- Controlul lui Pac-Man cu săgețile
-- Fantome care se mișcă aleatoriu
-- Colecționarea de puncte
+## Elemente principale
+- `point` - reprezintă o poziție în labirint (x, y)
+- `direction` - reprezintă direcțiile de mișcare (sus, jos, stânga, dreapta)
+- `pacman` - reprezintă jucătorul principal
+- `ghost` - reprezintă un inamic
+- `maze` - reprezintă labirintul jocului
 
 
