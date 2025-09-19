@@ -11,7 +11,7 @@ int main() {
     std::cout << "Pac-Man Game Started!" << std::endl;
     maze.display();
     
-    // Exemplu: Mișcă Pac-Man la dreapta
+    // misca Pac-Man la dreapta
     pacman.move(Direction::RIGHT, maze);
     
     return 0;
