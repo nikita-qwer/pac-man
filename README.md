@@ -9,5 +9,6 @@ Acest proiect este o implementare de bază a jocului Pac-Man folosind C++.
 - `pacman` - reprezintă jucătorul principal
 - `ghost` - reprezintă un inamic
 - `maze` - reprezintă labirintul jocului
+- `main` - inițializează jocul, afișează harta și demonstrează mișcarea lui Pac-Man  
 
 
