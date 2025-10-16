@@ -8,8 +8,7 @@ class Maze {
 
 public:
     Maze();
+    void display() const;
+    bool isWallAt(Point p) const;  // 🔹 adaugă această linie
     const std::vector<std::string>& get() const { return grid; }
 };
-
-
-

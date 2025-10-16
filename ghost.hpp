@@ -2,9 +2,10 @@
 #include "point.hpp"
 
 class Ghost {
-    Point pos;   
+private:
+    Point pos;
 
 public:
-    Ghost(Point p) : pos(p) {}   
-    Point get() const { return pos; }  
+    Ghost(Point p);
+    Point get() const;
 };
