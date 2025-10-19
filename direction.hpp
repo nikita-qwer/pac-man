@@ -1,9 +1,12 @@
 #pragma once
 
+#include <iostream>
+
 enum class Direction {
-    UP,    
-    DOWN,  
-    LEFT,  
-    RIGHT, 
-    NONE   
+    Top,
+    Left,
+    Right,
+    Bottom
 };
+
+std::ostream& operator<<(std::ostream& out, const Direction& direction);
