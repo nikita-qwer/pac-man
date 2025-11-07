@@ -1,8 +1,9 @@
 #include "maze.hpp"
 #include <iostream>
+#include <algorithm> // pentru std::for_each și std::any_of
 
-Maze::Maze() {
-    grid = {
+Maze::Maze()
+    : grid({
         "########",
         "#......#",
         "#.####.#",
@@ -10,17 +11,26 @@ Maze::Maze() {
         "#.####.#",
         "#......#",
         "########"
-    };
-}
+      })
+{}
 
 void Maze::display() const {
-    for (const auto& row : grid) {
-        std::cout << row << std::endl;
-    }
+    std::for_each(grid.begin(), grid.end(), [](const std::string& row) {
+        std::cout << row << '\n';
+    });
 }
 
-bool Maze::isWallAt(Point p) const {
-    if (p.y < 0 || p.y >= (int)grid.size()) return true;
-    if (p.x < 0 || p.x >= (int)grid[p.y].size()) return true;
+bool Maze::isWallAt(const Point& p) const {
+    auto validY = p.y >= 0 && p.y < static_cast<int>(grid.size());
+    if (!validY) return true;
+
+    auto validX = p.x >= 0 && p.x < static_cast<int>(grid[p.y].size());
+    if (!validX) return true;
+
     return grid[p.y][p.x] == '#';
+}
+
+bool Maze::isInside(const Point& p) const {
+    return p.y >= 0 && p.y < static_cast<int>(grid.size()) &&
+           p.x >= 0 && p.x < static_cast<int>(grid[p.y].size());
 }
