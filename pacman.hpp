@@ -1,23 +1,25 @@
 #pragma once
+#include <iostream>
+#include <memory>
 #include "point.hpp"
 #include "direction.hpp"
 #include "maze.hpp"
-#include <iostream>
 
 class Pacman {
-    Point pos;
+private:
+    std::shared_ptr<Point> pos; // smart pointer modern
 
 public:
-    Pacman(Point start = Point(1, 1));
+    explicit Pacman(const Point& start = {1, 1});
     Pacman(const Pacman& other);
+    Pacman& operator=(const Pacman& other);
 
     Point get() const;
+    void set(const Point& newPos);
     void move(Direction dir, const Maze& maze);
 
-    Pacman operator=(const Pacman& other);
-    bool operator==(const Pacman& other) const;
+    bool operator==(const Pacman& other) const noexcept;
+
+    friend std::istream& operator>>(std::istream& in, Pacman& pacman);
+    friend std::ostream& operator<<(std::ostream& out, const Pacman& pacman);
 };
-
-std::istream& operator>>(std::istream& in, Pacman& pacman);
-std::ostream& operator<<(std::ostream& out, const Pacman& pacman);
-
