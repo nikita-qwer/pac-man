@@ -1,21 +1,22 @@
 #pragma once
-#include "point.hpp"
 #include <iostream>
+#include <memory>
+#include "point.hpp"
 
 class Ghost {
 private:
-    Point pos;
+    std::shared_ptr<Point> pos; // smart pointer în loc de pointer raw
 
 public:
-    Ghost(Point p = Point(0, 0));
+    explicit Ghost(const Point& p);
     Ghost(const Ghost& other);
+    Ghost& operator=(const Ghost& other);
 
     Point get() const;
-    void set(Point newPos);
+    void set(const Point& newPos);
 
-    Ghost operator=(const Ghost& other);
-    bool operator==(const Ghost& other) const;
+    bool operator==(const Ghost& other) const noexcept;
+
+    friend std::istream& operator>>(std::istream& in, Ghost& ghost);
+    friend std::ostream& operator<<(std::ostream& out, const Ghost& ghost);
 };
-
-std::istream& operator>>(std::istream& in, Ghost& ghost);
-std::ostream& operator<<(std::ostream& out, const Ghost& ghost);
