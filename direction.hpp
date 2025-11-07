@@ -9,3 +9,4 @@ enum class Direction {
 };
 
 std::ostream& operator<<(std::ostream& out, const Direction& direction);
+
