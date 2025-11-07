@@ -1,30 +1,35 @@
 #include "ghost.hpp"
+#include <memory>
+#include <iostream>
+#include <utility> // pentru std::move
 
-Ghost::Ghost(Point p) : pos(p) {}
+Ghost::Ghost(const Point& p) : pos(std::make_shared<Point>(p)) {}
 
-Ghost::Ghost(const Ghost& other) : pos(other.pos) {}
+Ghost::Ghost(const Ghost& other) : pos(std::make_shared<Point>(*other.pos)) {}
 
-Point Ghost::get() const {
-    return pos;
-}
-
-void Ghost::set(Point newPos) {
-    pos = newPos;
-}
-
-Ghost Ghost::operator=(const Ghost& other) {
-    pos = other.pos;
+Ghost& Ghost::operator=(const Ghost& other) {
+    if (this != &other) {
+        pos = std::make_shared<Point>(*other.pos);
+    }
     return *this;
 }
 
-bool Ghost::operator==(const Ghost& other) const {
-    return pos == other.pos;
+Point Ghost::get() const {
+    return *pos;
+}
+
+void Ghost::set(const Point& newPos) {
+    *pos = newPos;
+}
+
+bool Ghost::operator==(const Ghost& other) const noexcept {
+    return *pos == *other.pos;
 }
 
 std::istream& operator>>(std::istream& in, Ghost& ghost) {
     Point p;
     in >> p;
-    ghost = Ghost(p);
+    ghost.set(p);
     return in;
 }
 
