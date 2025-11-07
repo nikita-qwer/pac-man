@@ -1,43 +1,55 @@
 #include "pacman.hpp"
+#include <iostream>
+#include <memory>
+#include <utility> // pentru std::move
 
-Pacman::Pacman(Point start) : pos(start) {}
+Pacman::Pacman(const Point& start)
+    : pos(std::make_shared<Point>(start)) {}
 
-Pacman::Pacman(const Pacman& other) : pos(other.pos) {}
+Pacman::Pacman(const Pacman& other)
+    : pos(std::make_shared<Point>(*other.pos)) {}
+
+Pacman& Pacman::operator=(const Pacman& other) {
+    if (this != &other) {
+        pos = std::make_shared<Point>(*other.pos);
+    }
+    return *this;
+}
 
 Point Pacman::get() const {
-    return pos;
+    return *pos;
 }
 
 void Pacman::move(Direction dir, const Maze& maze) {
-    Point newPos = pos;
+    Point newPos = *pos;
     switch (dir) {
         case Direction::Top:    newPos.y--; break;
         case Direction::Bottom: newPos.y++; break;
         case Direction::Left:   newPos.x--; break;
         case Direction::Right:  newPos.x++; break;
     }
+
     if (!maze.isWallAt(newPos)) {
-        pos = newPos;
+        *pos = newPos;
     }
 }
 
-Pacman Pacman::operator=(const Pacman& other) {
-    pos = other.pos;
-    return *this;
-}
-
-bool Pacman::operator==(const Pacman& other) const {
-    return pos == other.pos;
+bool Pacman::operator==(const Pacman& other) const noexcept {
+    return *pos == *other.pos;
 }
 
 std::istream& operator>>(std::istream& in, Pacman& pacman) {
     Point p;
     in >> p;
-    pacman = Pacman(p);
+    pacman.set(p);
     return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const Pacman& pacman) {
     out << pacman.get();
     return out;
+}
+
+void Pacman::set(const Point& newPos) {
+    *pos = newPos;
 }
